@@ -1,0 +1,702 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard | Restaurant</title>
+
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+
+<body class="admin-page">
+
+    <!-- SIDEBAR -->
+
+    <aside class="admin-sidebar">
+
+        <a href="index.html" class="admin-brand">
+            <span class="admin-brand-icon">R</span>
+            <span>RESTAURANT</span>
+        </a>
+
+        <div class="sidebar-label">MANAGEMENT</div>
+
+        <nav class="admin-navigation">
+
+            <a href="#dashboard" class="admin-nav-link active">
+                <span>▦</span> Dashboard
+            </a>
+
+            <a href="#bookings" class="admin-nav-link">
+                <span>▣</span> Collection Bookings
+            </a>
+
+            <a href="#orders" class="admin-nav-link">
+                <span>▤</span> Delivery Orders
+            </a>
+
+            <a href="#menu-management" class="admin-nav-link">
+                <span>☷</span> Menu Management
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <a href="index.html" class="admin-nav-link">
+                <span>↗</span> View Website
+            </a>
+
+            <p>Restaurant Management System</p>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="admin-main">
+
+        <!-- TOP BAR -->
+
+        <header class="admin-topbar">
+
+            <div>
+                <p class="admin-eyebrow">RESTAURANT MANAGEMENT</p>
+                <h1>Admin Dashboard</h1>
+            </div>
+
+            <div class="admin-profile">
+
+                <div class="admin-avatar">A</div>
+
+                <div>
+                    <strong>Administrator</strong>
+                    <span>Management Portal</span>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- DASHBOARD -->
+
+        <section class="admin-dashboard" id="dashboard">
+
+            <div class="welcome-section">
+
+                <div>
+                    <h2>Welcome Back, Admin</h2>
+
+                    <p>
+                        Manage collection bookings and monitor restaurant activity.
+                    </p>
+                </div>
+
+                <span class="dashboard-date" id="dashboard-date">
+                    Restaurant Overview
+                </span>
+
+            </div>
+
+
+            <!-- BOOKING STATISTICS -->
+
+            <div class="admin-stats">
+
+                <article class="stat-card">
+
+                    <div class="stat-icon">▣</div>
+
+                    <div>
+                        <p>Total Bookings</p>
+                        <h3 id="total-bookings">--</h3>
+                        <span>All collection bookings</span>
+                    </div>
+
+                </article>
+
+
+                <article class="stat-card">
+
+                    <div class="stat-icon">◷</div>
+
+                    <div>
+                        <p>Awaiting Arrival</p>
+                        <h3 id="booked-count">--</h3>
+                        <span>Customers not yet arrived</span>
+                    </div>
+
+                </article>
+
+
+                <article class="stat-card">
+
+                    <div class="stat-icon">↗</div>
+
+                    <div>
+                        <p>Arrived</p>
+                        <h3 id="arrived-count">--</h3>
+                        <span>Customers at the restaurant</span>
+                    </div>
+
+                </article>
+
+
+                <article class="stat-card">
+
+                    <div class="stat-icon">♨</div>
+
+                    <div>
+                        <p>Preparing</p>
+                        <h3 id="preparing-count">--</h3>
+                        <span>Bookings being prepared</span>
+                    </div>
+
+                </article>
+
+
+                <article class="stat-card">
+
+                    <div class="stat-icon">◉</div>
+
+                    <div>
+                        <p>Ready for Collection</p>
+                        <h3 id="ready-count">--</h3>
+                        <span>Waiting for customer collection</span>
+                    </div>
+
+                </article>
+
+
+                <article class="stat-card">
+
+                    <div class="stat-icon">✓</div>
+
+                    <div>
+                        <p>Collected</p>
+                        <h3 id="collected-count">--</h3>
+                        <span>Completed collections</span>
+                    </div>
+
+                </article>
+
+
+                <article class="stat-card">
+
+                    <div class="stat-icon">×</div>
+
+                    <div>
+                        <p>Cancelled</p>
+                        <h3 id="cancelled-count">--</h3>
+                        <span>Cancelled bookings</span>
+                    </div>
+
+                </article>
+
+
+                <article class="stat-card">
+
+                    <div class="stat-icon">%</div>
+
+                    <div>
+                        <p>Completion Rate</p>
+                        <h3 id="completion-rate">--</h3>
+                        <span>Successfully collected bookings</span>
+                    </div>
+
+                </article>
+
+            </div>
+
+
+            <!-- BOOKING STATUS OVERVIEW -->
+
+            <section class="admin-panel status-overview-panel">
+
+                <div class="panel-heading">
+
+                    <div>
+                        <p class="admin-eyebrow">BOOKING PERFORMANCE</p>
+
+                        <h2>Booking Status Overview</h2>
+
+                        <p>
+                            Monitor the distribution and progress
+                            of collection bookings.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="status-overview-grid">
+
+
+                    <!-- BOOKED -->
+
+                    <div class="status-overview-item">
+
+                        <div class="status-overview-heading">
+                            <span>Awaiting Arrival</span>
+                            <strong id="overview-booked-count">0</strong>
+                        </div>
+
+                        <div class="status-progress-track">
+                            <div
+                                class="status-progress-bar progress-booked"
+                                id="progress-booked"
+                                style="width: 0%;"
+                            ></div>
+                        </div>
+
+                    </div>
+
+
+                    <!-- ARRIVED -->
+
+                    <div class="status-overview-item">
+
+                        <div class="status-overview-heading">
+                            <span>Arrived</span>
+                            <strong id="overview-arrived-count">0</strong>
+                        </div>
+
+                        <div class="status-progress-track">
+                            <div
+                                class="status-progress-bar progress-arrived"
+                                id="progress-arrived"
+                                style="width: 0%;"
+                            ></div>
+                        </div>
+
+                    </div>
+
+
+                    <!-- PREPARING -->
+
+                    <div class="status-overview-item">
+
+                        <div class="status-overview-heading">
+                            <span>Preparing</span>
+                            <strong id="overview-preparing-count">0</strong>
+                        </div>
+
+                        <div class="status-progress-track">
+                            <div
+                                class="status-progress-bar progress-preparing"
+                                id="progress-preparing"
+                                style="width: 0%;"
+                            ></div>
+                        </div>
+
+                    </div>
+
+
+                    <!-- READY -->
+
+                    <div class="status-overview-item">
+
+                        <div class="status-overview-heading">
+                            <span>Ready for Collection</span>
+                            <strong id="overview-ready-count">0</strong>
+                        </div>
+
+                        <div class="status-progress-track">
+                            <div
+                                class="status-progress-bar progress-ready"
+                                id="progress-ready"
+                                style="width: 0%;"
+                            ></div>
+                        </div>
+
+                    </div>
+
+
+                    <!-- COLLECTED -->
+
+                    <div class="status-overview-item">
+
+                        <div class="status-overview-heading">
+                            <span>Collected</span>
+                            <strong id="overview-collected-count">0</strong>
+                        </div>
+
+                        <div class="status-progress-track">
+                            <div
+                                class="status-progress-bar progress-collected"
+                                id="progress-collected"
+                                style="width: 0%;"
+                            ></div>
+                        </div>
+
+                    </div>
+
+
+                    <!-- CANCELLED -->
+
+                    <div class="status-overview-item">
+
+                        <div class="status-overview-heading">
+                            <span>Cancelled</span>
+                            <strong id="overview-cancelled-count">0</strong>
+                        </div>
+
+                        <div class="status-progress-track">
+                            <div
+                                class="status-progress-bar progress-cancelled"
+                                id="progress-cancelled"
+                                style="width: 0%;"
+                            ></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <p class="status-overview-note">
+                    Percentages are calculated against all collection bookings.
+                </p>
+
+            </section>
+
+
+            <!-- BOOKING MANAGEMENT -->
+
+            <section class="admin-panel" id="bookings">
+
+                <div class="panel-heading">
+
+                    <div>
+                        <p class="admin-eyebrow">CUSTOMER MANAGEMENT</p>
+                        <h2>Collection Bookings</h2>
+
+                        <p>
+                            Review customer bookings and manage their collection progress.
+                        </p>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="refresh-button"
+                        id="refresh-bookings"
+                    >
+                        ↻ Refresh
+                    </button>
+
+                </div>
+
+
+                <!-- SEARCH AND FILTER -->
+
+                <div class="booking-controls">
+
+                    <div class="admin-search">
+
+                        <span>⌕</span>
+
+                        <input
+                            type="search"
+                            id="booking-search"
+                            placeholder="Search booking number, name, phone or email..."
+                        >
+
+                    </div>
+
+
+                    <select id="booking-status-filter">
+
+                        <option value="ALL">All Statuses</option>
+                        <option value="BOOKED">Booked</option>
+                        <option value="ARRIVED">Arrived</option>
+                        <option value="PREPARING">Preparing</option>
+                        <option value="READY">Ready for Collection</option>
+                        <option value="COLLECTED">Collected</option>
+                        <option value="CANCELLED">Cancelled</option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- BOOKINGS TABLE -->
+
+                <div class="table-container">
+
+                    <table class="bookings-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>Booking Number</th>
+                                <th>Customer</th>
+                                <th>Phone</th>
+                                <th>Date Created</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="bookings-table-body">
+
+                            <tr>
+                                <td colspan="6" class="table-message">
+                                    Booking information will appear here.
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <p
+                    class="admin-message"
+                    id="admin-message"
+                    aria-live="polite"
+                ></p>
+
+            </section>
+
+
+            <!-- DELIVERY ORDERS PLACEHOLDER -->
+
+            <section class="admin-panel secondary-panel" id="orders">
+
+                <div class="panel-heading">
+
+                    <div>
+                        <p class="admin-eyebrow">ORDER MANAGEMENT</p>
+                        <h2>Delivery Orders</h2>
+
+                        <p>
+                            Delivery order management will be activated
+                            after payment gateway integration.
+                        </p>
+                    </div>
+
+                    <span class="coming-soon">COMING SOON</span>
+
+                </div>
+
+            </section>
+
+
+            <!-- MENU MANAGEMENT PLACEHOLDER -->
+
+            <section class="admin-panel secondary-panel" id="menu-management">
+
+                <div class="panel-heading">
+
+                    <div>
+                        <p class="admin-eyebrow">RESTAURANT CATALOGUE</p>
+                        <h2>Menu Management</h2>
+
+                        <p>
+                            Menu updates, prices and availability management
+                            will be added in a later development stage.
+                        </p>
+                    </div>
+
+                    <span class="coming-soon">COMING SOON</span>
+
+                </div>
+
+            </section>
+
+        </section>
+
+
+        <!-- BOOKING DETAILS MODAL -->
+
+        <div
+            class="booking-modal"
+            id="booking-details-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="booking-modal-title"
+            aria-hidden="true"
+            hidden
+        >
+
+            <div class="booking-modal-content">
+
+                <!-- MODAL HEADER -->
+
+                <div class="booking-modal-header">
+
+                    <div>
+                        <p class="admin-eyebrow">CUSTOMER BOOKING</p>
+
+                        <h2 id="booking-modal-title">
+                            Booking Details
+                        </h2>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="booking-modal-close"
+                        id="close-booking-modal"
+                        aria-label="Close booking details"
+                    >
+                        &times;
+                    </button>
+
+                </div>
+
+
+                <!-- BOOKING REFERENCE -->
+
+                <div class="modal-booking-reference">
+
+                    <span>BOOKING NUMBER</span>
+
+                    <strong id="modal-booking-number">
+                        Loading...
+                    </strong>
+
+                    <span
+                        class="status-badge"
+                        id="modal-booking-status"
+                    >
+                        --
+                    </span>
+
+                </div>
+
+
+                <!-- CUSTOMER INFORMATION -->
+
+                <section class="modal-section">
+
+                    <h3>Customer Information</h3>
+
+                    <div class="modal-information-grid">
+
+                        <div>
+                            <span>Customer Name</span>
+                            <strong id="modal-customer-name">--</strong>
+                        </div>
+
+                        <div>
+                            <span>Phone Number</span>
+                            <strong id="modal-customer-phone">--</strong>
+                        </div>
+
+                        <div>
+                            <span>Email Address</span>
+                            <strong id="modal-customer-email">--</strong>
+                        </div>
+
+                        <div>
+                            <span>Date Created</span>
+                            <strong id="modal-booking-date">--</strong>
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- BOOKED ITEMS -->
+
+                <section class="modal-section">
+
+                    <h3>Booked Items</h3>
+
+                    <div class="modal-items-container">
+
+                        <table class="modal-items-table">
+
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Quantity</th>
+                                    <th>Unit Price</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="modal-booking-items">
+
+                                <tr>
+                                    <td colspan="4">
+                                        Booking items will appear here.
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </section>
+
+
+                <!-- BOOKING TOTAL -->
+
+                <div class="modal-total-section">
+
+                    <span>Booking Total</span>
+
+                    <strong id="modal-booking-total">
+                        R0.00
+                    </strong>
+
+                </div>
+
+
+                <!-- MODAL FOOTER -->
+
+                <div class="booking-modal-footer">
+
+                    <p>
+                        Collection bookings are prepared only after
+                        the customer arrives and presents their booking number.
+                    </p>
+
+                    <button
+                        type="button"
+                        class="refresh-button"
+                        id="close-booking-modal-footer"
+                    >
+                        Close Details
+                    </button>
+
+                </div>
+
+
+                <p
+                    class="modal-loading-message"
+                    id="modal-booking-message"
+                    aria-live="polite"
+                ></p>
+
+            </div>
+
+        </div>
+
+
+        <!-- FOOTER -->
+
+        <footer class="admin-footer">
+            <p>&copy; 2026 Restaurant. Admin Management Portal.</p>
+        </footer>
+
+    </main>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="js/admin.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+
+{
+  "restaurant": "Restaurant",
+  "currency": "ZAR",
+
+  "menu": [
+    {
+      "id": 1,
+      "name": "Classic Beef Burger",
+      "category": "Burgers",
+      "description": "Juicy beef patty, fresh lettuce, tomato and our signature sauce.",
+      "price": 65.00,
+      "image": "images/classic-beef-burger.jpg",
+      "available": true,
+      "recommended": true,
+      "bozza": false
+    },
+    {
+      "id": 2,
+      "name": "Bozza Double Burger Meal",
+      "category": "Burgers",
+      "description": "A double beef burger served with crispy chips and a refreshing drink.",
+      "price": 110.00,
+      "image": "images/bozza-double-burger.jpg",
+      "available": true,
+      "recommended": true,
+      "bozza": true
+    },
+    {
+      "id": 3,
+      "name": "Classic Kota",
+      "category": "Kota",
+      "description": "Fresh bread filled with chips, polony, cheese and our special sauce.",
+      "price": 45.00,
+      "image": "images/classic-kota.jpg",
+      "available": true,
+      "recommended": true,
+      "bozza": false
+    },
+    {
+      "id": 4,
+      "name": "Bozza Loaded Kota",
+      "category": "Kota",
+      "description": "A loaded kota packed with delicious fillings, cheese, chips and sauce.",
+      "price": 85.00,
+      "image": "images/bozza-loaded-kota.jpg",
+      "available": true,
+      "recommended": true,
+      "bozza": true
+    },
+    {
+      "id": 5,
+      "name": "Chicken Mayo Sandwich",
+      "category": "Sandwiches",
+      "description": "Tender chicken, creamy mayonnaise and fresh vegetables.",
+      "price": 50.00,
+      "image": "images/chicken-mayo-sandwich.jpg",
+      "available": true,
+      "recommended": false,
+      "bozza": false
+    },
+    {
+      "id": 6,
+      "name": "Kill Match Steak Sandwich",
+      "category": "Sandwiches",
+      "description": "A generously filled steak sandwich with cheese and our special sauce.",
+      "price": 90.00,
+      "image": "images/kill-match-steak-sandwich.jpg",
+      "available": true,
+      "recommended": true,
+      "bozza": true
+    },
+    {
+      "id": 7,
+      "name": "Classic Hotdog",
+      "category": "Hotdogs",
+      "description": "A juicy sausage in a soft roll with tomato sauce and mustard.",
+      "price": 40.00,
+      "image": "images/classic-hotdog.jpg",
+      "available": true,
+      "recommended": false,
+      "bozza": false
+    },
+    {
+      "id": 8,
+      "name": "Bozza Loaded Hotdog",
+      "category": "Hotdogs",
+      "description": "A loaded hotdog topped with cheese, crispy chips and signature sauce.",
+      "price": 75.00,
+      "image": "images/bozza-loaded-hotdog.jpg",
+      "available": true,
+      "recommended": true,
+      "bozza": true
+    },
+    {
+      "id": 9,
+      "name": "Classic Cheese Pizza",
+      "category": "Pizza",
+      "description": "Freshly prepared pizza topped with melted cheese and tomato sauce.",
+      "price": 95.00,
+      "image": "images/classic-cheese-pizza.jpg",
+      "available": true,
+      "recommended": false,
+      "bozza": false
+    },
+    {
+      "id": 10,
+      "name": "Kill Match Meat Feast Pizza",
+      "category": "Pizza",
+      "description": "A generous meat feast pizza loaded with cheese and delicious toppings.",
+      "price": 145.00,
+      "image": "images/kill-match-meat-feast-pizza.jpg",
+      "available": true,
+      "recommended": true,
+      "bozza": true
+    }
+  ]
+}

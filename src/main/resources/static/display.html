@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Collection Display | Restaurant</title>
+
+    <link rel="stylesheet" href="css/display.css">
+</head>
+
+<body class="display-page">
+
+    <!-- DISPLAY HEADER -->
+
+    <header class="display-header">
+
+        <div class="display-brand">
+            <span class="display-logo">R</span>
+
+            <div>
+                <h1>RESTAURANT</h1>
+                <p>COLLECTION DISPLAY</p>
+            </div>
+        </div>
+
+        <div class="display-header-right">
+
+            <div class="display-live">
+                <span class="live-indicator"></span>
+                LIVE
+            </div>
+
+            <div class="display-clock" id="display-clock">
+                00:00
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN DISPLAY -->
+
+    <main class="display-main">
+
+        <div class="display-welcome">
+
+            <p class="display-eyebrow">
+                YOUR FOOD JOURNEY
+            </p>
+
+            <h2>
+                Good Food. Great Moments.
+            </h2>
+
+            <p>
+                Please keep your booking number ready.
+            </p>
+
+        </div>
+
+
+        <!-- TWO COLLECTION COLUMNS -->
+
+        <section class="collection-display-grid">
+
+
+            <!-- PREPARING SECTION -->
+
+            <section class="collection-column preparing-column">
+
+                <div class="collection-column-header">
+
+                    <div class="collection-heading-icon">
+                        ♨
+                    </div>
+
+                    <div>
+                        <h2>PREPARING</h2>
+
+                        <p>
+                            Your order is being freshly prepared.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="booking-number-list"
+                    id="preparing-list"
+                >
+
+                    <div class="display-empty-message">
+                        No bookings being prepared right now.
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- READY FOR COLLECTION SECTION -->
+
+            <section class="collection-column ready-column">
+
+                <div class="collection-column-header">
+
+                    <div class="collection-heading-icon">
+                        ✓
+                    </div>
+
+                    <div>
+                        <h2>COME AND COLLECT</h2>
+
+                        <p>
+                            Your order is ready. Please collect it.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="booking-number-list"
+                    id="ready-list"
+                >
+
+                    <div class="display-empty-message">
+                        No bookings ready for collection.
+                    </div>
+
+                </div>
+
+            </section>
+
+
+        </section>
+
+
+        <!-- FOOTER MESSAGE -->
+
+        <footer class="display-footer">
+
+            <div class="display-footer-message">
+
+                <span class="footer-star">✦</span>
+
+                Thank you for choosing Restaurant.
+                We appreciate your support!
+
+                <span class="footer-star">✦</span>
+
+            </div>
+
+            <p>
+                Please present your unique booking number when collecting your food.
+            </p>
+
+        </footer>
+
+    </main>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="js/display.js"></script>
+
+</body>
+</html>

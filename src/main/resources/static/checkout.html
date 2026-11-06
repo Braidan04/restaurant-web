@@ -1,0 +1,542 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout | Restaurant</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/checkout.css">
+</head>
+
+<body class="checkout-page">
+
+    <!-- HEADER -->
+
+    <header class="site-header">
+
+        <div class="header-main">
+
+            <a href="index.html" class="brand">
+                <span class="brand-icon">R</span>
+                <span class="brand-name">RESTAURANT</span>
+            </a>
+
+            <a href="cart.html" class="cart-continue-link">
+                ← Back to Cart
+            </a>
+
+        </div>
+
+        <nav class="main-navigation">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="index.html#menu" class="nav-link">Explore Our Menu</a>
+            <a href="cart.html" class="nav-link">My Cart</a>
+            <a href="checkout.html" class="nav-link active">Checkout</a>
+        </nav>
+
+    </header>
+
+
+    <!-- MAIN CHECKOUT -->
+
+    <main class="checkout-main">
+
+        <section class="checkout-heading">
+
+            <p class="section-eyebrow">ALMOST THERE</p>
+
+            <h1>Complete Your <span>Order</span></h1>
+
+            <p>
+                Choose collection booking or delivery with your preferred
+                payment method.
+            </p>
+
+        </section>
+
+
+        <section class="checkout-layout">
+
+
+            <!-- CHECKOUT FORM -->
+
+            <form id="checkout-form" class="checkout-form">
+
+                <!-- 01 CUSTOMER INFORMATION -->
+
+                <div class="checkout-section">
+
+                    <h2>01. Customer Information</h2>
+
+                    <div class="form-group">
+
+                        <label for="customer-name">Full Name *</label>
+
+                        <input
+                            type="text"
+                            id="customer-name"
+                            name="customerName"
+                            placeholder="Enter your full name"
+                            autocomplete="name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label for="customer-phone">Phone Number *</label>
+
+                            <input
+                                type="tel"
+                                id="customer-phone"
+                                name="phone"
+                                placeholder="e.g. 071 234 5678"
+                                autocomplete="tel"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="customer-email">Email Address</label>
+
+                            <input
+                                type="email"
+                                id="customer-email"
+                                name="email"
+                                placeholder="example@email.com"
+                                autocomplete="email"
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 02 ORDER METHOD -->
+
+                <div class="checkout-section">
+
+                    <h2>02. How Would You Like Your Order?</h2>
+
+                    <div class="form-group">
+
+                        <label for="order-type">Order Method *</label>
+
+                        <select
+                            id="order-type"
+                            name="orderType"
+                            required
+                        >
+
+                            <option value="">Select order method</option>
+
+                            <option value="COLLECTION">
+                                Collection Booking
+                            </option>
+
+                            <option value="DELIVERY">
+                                Delivery Order
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- COLLECTION INFORMATION -->
+
+                    <div
+                        id="collection-info"
+                        class="reservation-info"
+                        hidden
+                    >
+
+                        <h3>Collection Booking</h3>
+
+                        <p>
+                            Reserve your selected meals and receive a unique
+                            Booking Number. We will only start preparing your
+                            food when you arrive and present your Booking Number.
+                            Please keep this number safe.
+                        </p>
+
+                        <strong>
+                            No advance payment is required for a collection booking.
+                        </strong>
+
+                    </div>
+
+
+                    <!-- DELIVERY ADDRESS -->
+
+                    <div
+                        class="form-group"
+                        id="address-group"
+                        hidden
+                    >
+
+                        <label for="delivery-address">
+                            Delivery Address *
+                        </label>
+
+                        <textarea
+                            id="delivery-address"
+                            name="deliveryAddress"
+                            rows="4"
+                            placeholder="Enter your complete delivery address"
+                            autocomplete="street-address"
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 03 ONLINE PAYMENT -->
+
+                <div
+                    class="checkout-section"
+                    id="payment-section"
+                    hidden
+                >
+
+                    <h2>03. Online Payment</h2>
+
+                    <p class="payment-introduction">
+                        Select your preferred payment method for your
+                        delivery order. Secure payment processing will
+                        become available once our payment gateway is connected.
+                    </p>
+
+
+                    <div class="form-group">
+
+                        <label for="payment-method">
+                            Payment Method *
+                        </label>
+
+                        <select
+                            id="payment-method"
+                            name="paymentMethod"
+                            disabled
+                        >
+
+                            <option value="">Select payment method</option>
+
+                            <option value="CARD">
+                                Credit / Debit Card
+                            </option>
+
+                            <option value="PAYFAST">
+                                PayFast
+                            </option>
+
+                            <option value="YOCO">
+                                Yoco
+                            </option>
+
+                            <option value="EFT">
+                                Electronic Funds Transfer (EFT)
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- PAYMENT METHOD DISPLAY -->
+
+                    <div class="payment-methods">
+
+
+                        <!-- CARD -->
+
+                        <div class="payment-method-card">
+
+                            <div class="payment-method-icon">
+
+                                <span>VISA</span>
+                                <span>Mastercard</span>
+
+                            </div>
+
+                            <div class="payment-method-description">
+
+                                <h3>Credit / Debit Card</h3>
+
+                                <p>
+                                    Pay using your bank card through
+                                    a secure payment gateway.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- PAYFAST -->
+
+                        <div class="payment-method-card">
+
+                            <div class="payment-method-icon payfast-icon">
+                                PAYFAST
+                            </div>
+
+                            <div class="payment-method-description">
+
+                                <h3>PayFast</h3>
+
+                                <p>
+                                    Online payments through the
+                                    PayFast payment platform.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- YOCO -->
+
+                        <div class="payment-method-card">
+
+                            <div class="payment-method-icon yoco-icon">
+                                YOCO
+                            </div>
+
+                            <div class="payment-method-description">
+
+                                <h3>Yoco</h3>
+
+                                <p>
+                                    Online card payments through Yoco.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- EFT -->
+
+                        <div class="payment-method-card">
+
+                            <div class="payment-method-icon eft-icon">
+                                EFT
+                            </div>
+
+                            <div class="payment-method-description">
+
+                                <h3>Electronic Funds Transfer</h3>
+
+                                <p>
+                                    Bank transfer payment option
+                                    for future integration.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PAYMENT NOTICE -->
+
+                    <div class="payment-notice">
+
+                        <strong>
+                            Payment Gateway Coming Soon
+                        </strong>
+
+                        <p>
+                            Payment options are currently displayed for
+                            demonstration. No money will be charged or
+                            transferred. Delivery orders cannot be confirmed
+                            until payment integration is completed and
+                            payment is successfully verified.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 04 ADDITIONAL INSTRUCTIONS -->
+
+                <div class="checkout-section">
+
+                    <h2>04. Additional Instructions</h2>
+
+                    <div class="form-group">
+
+                        <label for="order-notes">
+                            Special Instructions
+                        </label>
+
+                        <textarea
+                            id="order-notes"
+                            name="notes"
+                            rows="4"
+                            placeholder="Any special requests for your order?"
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SUBMIT BUTTON -->
+
+                <button
+                    type="submit"
+                    id="place-order-btn"
+                    class="checkout-submit-btn"
+                    disabled
+                >
+                    Continue →
+                </button>
+
+
+                <!-- ERROR / STATUS MESSAGE -->
+
+                <p
+                    id="checkout-error"
+                    class="checkout-message"
+                    aria-live="polite"
+                    hidden
+                ></p>
+
+            </form>
+
+
+
+            <!-- ORDER SUMMARY -->
+
+            <aside class="checkout-order-summary">
+
+                <h2>Your Selection</h2>
+
+                <div id="checkout-items">
+
+                    <p>Loading your selection...</p>
+
+                </div>
+
+
+                <div class="summary-divider"></div>
+
+
+                <div class="summary-row">
+
+                    <span>Estimated Subtotal</span>
+
+                    <span id="checkout-subtotal">R0.00</span>
+
+                </div>
+
+
+                <div
+                    class="summary-row"
+                    id="delivery-fee-row"
+                    hidden
+                >
+
+                    <span>Delivery Fee</span>
+
+                    <span id="checkout-delivery-fee">R0.00</span>
+
+                </div>
+
+
+                <div class="summary-divider"></div>
+
+
+                <div class="summary-row total-row">
+
+                    <strong>Estimated Total</strong>
+
+                    <strong id="checkout-total">R0.00</strong>
+
+                </div>
+
+
+                <!-- PAYMENT BREAKDOWN -->
+
+                <div
+                    class="checkout-payment-breakdown"
+                    id="payment-breakdown"
+                    hidden
+                >
+
+                    <div class="summary-row">
+
+                        <strong>Amount Payable Online</strong>
+
+                        <strong id="amount-due-now">R0.00</strong>
+
+                    </div>
+
+                </div>
+
+
+                <p
+                    class="cart-note"
+                    id="checkout-summary-note"
+                >
+                    Select your preferred order method to continue.
+                </p>
+
+            </aside>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- FOOTER -->
+
+    <footer class="site-footer">
+
+        <div class="footer-content">
+
+            <a href="index.html" class="brand footer-brand">
+
+                <span class="brand-icon">R</span>
+
+                <span class="brand-name">RESTAURANT</span>
+
+            </a>
+
+            <p>
+                Good food. Great moments. Unforgettable taste.
+            </p>
+
+            <p class="copyright">
+                &copy; 2026 Restaurant. All rights reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="js/checkout.js"></script>
+
+</body>
+</html>

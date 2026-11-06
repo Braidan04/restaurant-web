@@ -1,0 +1,354 @@
+
+/* ==========================================
+   RESTAURANT CUSTOMER COLLECTION DISPLAY
+========================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body.display-page {
+    min-height: 100vh;
+    background: #101010;
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.display-header {
+    width: 100%;
+    min-height: 100px;
+    padding: 20px 5%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: #080808;
+    border-bottom: 2px solid #c9a227;
+}
+
+.display-brand {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.display-logo {
+    width: 60px;
+    height: 60px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #c9a227;
+    color: #080808;
+
+    border-radius: 12px;
+
+    font-size: 36px;
+    font-weight: 900;
+}
+
+.display-brand h1 {
+    color: #c9a227;
+    font-size: 27px;
+    letter-spacing: 4px;
+}
+
+.display-brand p {
+    margin-top: 6px;
+    color: #aaaaaa;
+    font-size: 12px;
+    letter-spacing: 3px;
+}
+
+.display-header-right {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.display-live {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    color: #dddddd;
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.live-indicator {
+    width: 12px;
+    height: 12px;
+
+    background: #32cd72;
+    border-radius: 50%;
+
+    box-shadow: 0 0 12px rgba(50, 205, 114, 0.6);
+}
+
+.display-clock {
+    color: #c9a227;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+
+/* ==========================================
+   MAIN DISPLAY
+========================================== */
+
+.display-main {
+    width: 100%;
+    padding: 30px 5% 25px;
+}
+
+.display-welcome {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.display-eyebrow {
+    color: #c9a227;
+    font-size: 13px;
+    letter-spacing: 5px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.display-welcome h2 {
+    font-size: 36px;
+    color: #ffffff;
+    margin-bottom: 12px;
+}
+
+.display-welcome > p:last-child {
+    color: #aaaaaa;
+    font-size: 17px;
+}
+
+
+/* ==========================================
+   COLLECTION COLUMNS
+========================================== */
+
+.collection-display-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.collection-column {
+    min-height: 430px;
+
+    background: #191919;
+    border-radius: 16px;
+    overflow: hidden;
+
+    border: 1px solid #333333;
+}
+
+.collection-column-header {
+    min-height: 105px;
+    padding: 25px;
+
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.preparing-column .collection-column-header {
+    background: #292211;
+    border-bottom: 2px solid #c9a227;
+}
+
+.ready-column .collection-column-header {
+    background: #10251a;
+    border-bottom: 2px solid #32cd72;
+}
+
+.collection-heading-icon {
+    width: 55px;
+    height: 55px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 12px;
+
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.preparing-column .collection-heading-icon {
+    background: #c9a227;
+    color: #101010;
+}
+
+.ready-column .collection-heading-icon {
+    background: #32cd72;
+    color: #101010;
+}
+
+.collection-column-header h2 {
+    font-size: 25px;
+    letter-spacing: 2px;
+}
+
+.preparing-column .collection-column-header h2 {
+    color: #c9a227;
+}
+
+.ready-column .collection-column-header h2 {
+    color: #32cd72;
+}
+
+.collection-column-header p {
+    margin-top: 8px;
+    color: #bbbbbb;
+    font-size: 14px;
+}
+
+
+/* ==========================================
+   BOOKING NUMBER LIST
+========================================== */
+
+.booking-number-list {
+    padding: 25px;
+
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+}
+
+.booking-number-card {
+    min-height: 95px;
+    padding: 20px 15px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #242424;
+    border-radius: 10px;
+
+    text-align: center;
+
+    font-size: 25px;
+    font-weight: 900;
+    letter-spacing: 1px;
+
+    overflow-wrap: anywhere;
+}
+
+.preparing-column .booking-number-card {
+    color: #f0ce65;
+    border: 1px solid #705b20;
+}
+
+.ready-column .booking-number-card {
+    color: #54e58e;
+    background: #183021;
+    border: 1px solid #287343;
+}
+
+.display-empty-message {
+    grid-column: 1 / -1;
+
+    padding: 45px 20px;
+
+    text-align: center;
+
+    color: #777777;
+    font-size: 18px;
+}
+
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+.display-footer {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.display-footer-message {
+    color: #c9a227;
+    font-size: 19px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.footer-star {
+    padding: 0 12px;
+}
+
+.display-footer > p {
+    margin-top: 12px;
+    color: #888888;
+    font-size: 14px;
+}
+
+
+/* ==========================================
+   RESPONSIVE DESIGN
+========================================== */
+
+@media (max-width: 900px) {
+
+    .collection-display-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .display-welcome h2 {
+        font-size: 28px;
+    }
+
+    .collection-column-header h2 {
+        font-size: 21px;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .display-header {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .display-brand {
+        flex-direction: column;
+    }
+
+    .display-header-right {
+        gap: 20px;
+    }
+
+    .booking-number-list {
+        grid-template-columns: 1fr;
+    }
+
+    .display-welcome h2 {
+        font-size: 24px;
+    }
+
+    .display-footer-message {
+        font-size: 15px;
+    }
+
+}

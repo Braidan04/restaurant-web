@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Cart | Restaurant</title>
+
+    <meta name="description"
+          content="Review your selected meals and prepare your restaurant order.">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="cart-page">
+
+    <!-- HEADER -->
+    <header class="site-header">
+
+        <div class="header-main">
+
+            <a href="index.html" class="brand">
+                <span class="brand-icon">R</span>
+                <span class="brand-name">RESTAURANT</span>
+            </a>
+
+            <a href="index.html#menu" class="cart-continue-link">
+                Continue Shopping
+            </a>
+
+            <a href="cart.html" class="cart-link" aria-label="Shopping cart">
+                <span class="cart-icon">🛒</span>
+                <span class="cart-label">My Cart</span>
+                <span id="cart-count" class="cart-count">0</span>
+            </a>
+
+        </div>
+
+        <nav class="main-navigation">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="index.html#categories" class="nav-link">Shop Categories</a>
+            <a href="index.html#menu" class="nav-link">Explore Our Menu</a>
+            <a href="cart.html" class="nav-link active">My Cart</a>
+        </nav>
+
+    </header>
+
+
+    <!-- CART PAGE -->
+    <main class="cart-page-main">
+
+        <section class="cart-page-heading">
+
+            <p class="section-eyebrow">YOUR SELECTION</p>
+
+            <h1>My Shopping <span>Cart</span></h1>
+
+            <p>
+                Review your favourite meals before placing your order.
+            </p>
+
+        </section>
+
+
+        <section class="cart-page-content">
+
+            <!-- CART PRODUCTS -->
+            <div class="cart-products">
+
+                <div class="cart-products-heading">
+
+                    <div>
+                        <h2>Your Products</h2>
+                        <p>Check your selected meals below.</p>
+                    </div>
+
+                    <a href="index.html#menu" class="continue-shopping">
+                        + Add More Meals
+                    </a>
+
+                </div>
+
+
+                <div id="cart-items">
+                    <p class="cart-loading">Loading your cart...</p>
+                </div>
+
+            </div>
+
+
+            <!-- ORDER SUMMARY -->
+            <aside class="cart-summary">
+
+                <h2>Order Summary</h2>
+
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="cart-subtotal">R0.00</span>
+                </div>
+
+                <div class="summary-row">
+                    <span>Delivery Fee</span>
+                    <span id="delivery-fee">R0.00</span>
+                </div>
+
+                <div class="summary-divider"></div>
+
+                <div class="summary-row total-row">
+                    <strong>Total</strong>
+                    <strong id="cart-total">R0.00</strong>
+                </div>
+
+                <button
+                    type="button"
+                    id="checkout-btn"
+                    class="checkout-btn"
+                    disabled
+                >
+                    Proceed to Checkout
+                    <span>→</span>
+                </button>
+
+                <p class="cart-note">
+                    Your selected meals are saved in your shopping cart.
+                </p>
+
+                <a href="index.html#menu" class="back-to-menu">
+                    Continue exploring our menu
+                </a>
+
+                <p id="checkout-message" class="checkout-message" aria-live="polite"></p>
+
+            </aside>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+
+        <div class="footer-content">
+
+            <a href="index.html" class="brand footer-brand">
+                <span class="brand-icon">R</span>
+                <span class="brand-name">RESTAURANT</span>
+            </a>
+
+            <p>Good food. Great moments. Unforgettable taste.</p>
+
+            <p class="copyright">
+                &copy; 2026 Restaurant. All rights reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <script src="js/cart.js"></script>
+
+</body>
+</html>
