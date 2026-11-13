@@ -58,8 +58,14 @@
 
     <main>
 
-        <!-- HERO SECTION -->
+        <!-- HERO SECTION WITH ROTATING BACKGROUND -->
         <section class="hero-section" id="home">
+
+            <!-- Background slideshow layers -->
+            <div class="hero-background-slideshow" aria-hidden="true">
+                <div class="hero-background-image active"></div>
+                <div class="hero-background-image"></div>
+            </div>
 
             <div class="hero-content">
 
@@ -187,7 +193,7 @@
             </div>
 
             <div class="product-grid" id="recommended-container">
-                <!-- Recommended products are loaded from menu.json by menu.js -->
+                <!-- Recommended products are loaded by menu.js -->
             </div>
 
         </section>
@@ -209,7 +215,7 @@
             </div>
 
             <div class="product-grid" id="menu-container">
-                <!-- All available menu products are loaded from menu.json -->
+                <!-- All available menu products are loaded by menu.js -->
             </div>
 
         </section>
@@ -233,7 +239,7 @@
                 </div>
 
                 <div class="product-grid" id="bozza-container">
-                    <!-- Bozza meals are loaded from menu.json by menu.js -->
+                    <!-- Bozza meals are loaded by menu.js -->
                 </div>
 
             </div>
@@ -341,7 +347,9 @@
     </footer>
 
 
+    <!-- JAVASCRIPT -->
     <script src="js/menu.js"></script>
+    <script src="js/hero-slideshow.js"></script>
 
 </body>
 </html>

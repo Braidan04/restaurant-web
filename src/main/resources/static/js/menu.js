@@ -7,11 +7,13 @@ let searchTerm = "";
 let cart = [];
 
 try {
-    cart = JSON.parse(localStorage.getItem("restaurantCart")) || [];
+    const savedCart = JSON.parse(localStorage.getItem("restaurantCart"));
+    cart = Array.isArray(savedCart) ? savedCart : [];
 } catch (error) {
     console.error("Could not load saved cart:", error);
     cart = [];
 }
+
 
 // =========================================
 // START APPLICATION
@@ -29,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // =========================================
 
 async function loadMenu() {
+
     const menuContainer = document.getElementById("menu-container");
 
     if (menuContainer) {
@@ -36,10 +39,11 @@ async function loadMenu() {
     }
 
     try {
+
         const response = await fetch("/api/menu");
 
         if (!response.ok) {
-            throw new Error("Could not retrieve menu from the server.");
+            throw new Error("Could not retrieve menu. HTTP " + response.status);
         }
 
         const data = await response.json();
@@ -55,6 +59,7 @@ async function loadMenu() {
         displayBozzaMeals();
 
     } catch (error) {
+
         console.error("Menu loading error:", error);
 
         if (menuContainer) {
@@ -127,6 +132,105 @@ function setupMenuFilters() {
 
 
 // =========================================
+// CATEGORY PLACEHOLDER ICONS
+// =========================================
+
+function getCategoryEmoji(category) {
+
+    const emojis = {
+        Burgers: "🍔",
+        Kota: "🥪",
+        Sandwiches: "🥙",
+        Hotdogs: "🌭",
+        Pizza: "🍕"
+    };
+
+    return emojis[category] || "🍽️";
+}
+
+
+// =========================================
+// CREATE PRODUCT IMAGE
+// =========================================
+
+
+function createProductImage(item) {
+
+    const imageWrapper = document.createElement("div");
+
+    imageWrapper.classList.add("menu-card-image-wrapper");
+
+    const image = document.createElement("img");
+
+    image.classList.add("menu-product-image");
+
+    image.alt = item.name || "Restaurant menu item";
+    image.loading = "lazy";
+    image.decoding = "async";
+
+    image.addEventListener("load", () => {
+        image.style.display = "block";
+    });
+
+    image.addEventListener("error", () => {
+        image.style.display = "none";
+    });
+
+    imageWrapper.appendChild(image);
+
+    if (item.image && item.image.trim() !== "") {
+        image.src = item.image;
+    } else {
+        image.style.display = "none";
+    }
+
+    return imageWrapper;
+}
+
+
+// =========================================
+// CREATE PRODUCT BADGES
+// =========================================
+
+function createProductBadges(item) {
+
+    const badgeContainer = document.createElement("div");
+
+    badgeContainer.classList.add("product-badges");
+
+    if (item.recommended === true) {
+
+        const recommendedBadge = document.createElement("span");
+
+        recommendedBadge.classList.add(
+            "product-badge",
+            "recommended-badge"
+        );
+
+        recommendedBadge.textContent = "RECOMMENDED";
+
+        badgeContainer.appendChild(recommendedBadge);
+    }
+
+    if (item.bozza === true) {
+
+        const bozzaBadge = document.createElement("span");
+
+        bozzaBadge.classList.add(
+            "product-badge",
+            "bozza-badge"
+        );
+
+        bozzaBadge.textContent = "BOZZA & KILL MATCH";
+
+        badgeContainer.appendChild(bozzaBadge);
+    }
+
+    return badgeContainer;
+}
+
+
+// =========================================
 // CREATE REUSABLE PRODUCT CARD
 // =========================================
 
@@ -136,21 +240,15 @@ function createProductCard(item) {
 
     menuCard.classList.add("menu-card");
 
-    // PRODUCT IMAGE
+    // IMAGE AND BADGES
 
-    const image = document.createElement("img");
+    const imageWrapper = createProductImage(item);
 
-    image.classList.add("menu-product-image");
+    const badges = createProductBadges(item);
 
-    image.src = item.image || "";
-
-    image.alt = item.name;
-
-    image.loading = "lazy";
-
-    image.addEventListener("error", () => {
-        image.style.display = "none";
-    });
+    if (badges.children.length > 0) {
+        imageWrapper.appendChild(badges);
+    }
 
     // CARD CONTENT
 
@@ -164,19 +262,22 @@ function createProductCard(item) {
 
     category.classList.add("menu-card-category");
 
-    category.textContent = item.category;
+    category.textContent = item.category || "Menu Item";
 
     // PRODUCT NAME
 
     const heading = document.createElement("h3");
 
-    heading.textContent = item.name;
+    heading.textContent = item.name || "Unnamed Product";
 
     // DESCRIPTION
 
     const description = document.createElement("p");
 
-    description.textContent = item.description || "";
+    description.classList.add("menu-card-description");
+
+    description.textContent =
+        item.description || "A delicious meal prepared for you.";
 
     // PRICE
 
@@ -190,13 +291,20 @@ function createProductCard(item) {
 
     const addButton = document.createElement("button");
 
+    addButton.type = "button";
+
     addButton.classList.add("add-to-cart-btn");
 
     addButton.textContent = "Add to Cart";
 
     addButton.dataset.id = item.id;
 
-    // BUILD PRODUCT CARD
+    addButton.setAttribute(
+        "aria-label",
+        "Add " + (item.name || "product") + " to cart"
+    );
+
+    // BUILD CARD
 
     content.append(
         category,
@@ -207,7 +315,7 @@ function createProductCard(item) {
     );
 
     menuCard.append(
-        image,
+        imageWrapper,
         content
     );
 
@@ -216,7 +324,7 @@ function createProductCard(item) {
 
 
 // =========================================
-// DISPLAY ALL MENU PRODUCTS
+// DISPLAY ALL AVAILABLE MENU PRODUCTS
 // =========================================
 
 function displayMenu() {
@@ -242,7 +350,9 @@ function displayMenu() {
             itemName.includes(searchTerm) ||
             itemDescription.includes(searchTerm);
 
-        return item.available && matchesCategory && matchesSearch;
+        return item.available === true &&
+            matchesCategory &&
+            matchesSearch;
     });
 
     if (filteredItems.length === 0) {
@@ -255,9 +365,7 @@ function displayMenu() {
 
     filteredItems.forEach(item => {
 
-        const productCard = createProductCard(item);
-
-        menuContainer.appendChild(productCard);
+        menuContainer.appendChild(createProductCard(item));
     });
 }
 
@@ -277,7 +385,8 @@ function displayRecommendedProducts() {
 
     const recommendedItems = allMenuItems.filter(item => {
 
-        return item.available && item.recommended === true;
+        return item.available === true &&
+            item.recommended === true;
     });
 
     const shuffledItems = [...recommendedItems].sort(
@@ -296,9 +405,7 @@ function displayRecommendedProducts() {
 
     selectedItems.forEach(item => {
 
-        const productCard = createProductCard(item);
-
-        recommendedContainer.appendChild(productCard);
+        recommendedContainer.appendChild(createProductCard(item));
     });
 }
 
@@ -318,7 +425,8 @@ function displayBozzaMeals() {
 
     const bozzaItems = allMenuItems.filter(item => {
 
-        return item.available && item.bozza === true;
+        return item.available === true &&
+            item.bozza === true;
     });
 
     if (bozzaItems.length === 0) {
@@ -331,9 +439,7 @@ function displayBozzaMeals() {
 
     bozzaItems.forEach(item => {
 
-        const productCard = createProductCard(item);
-
-        bozzaContainer.appendChild(productCard);
+        bozzaContainer.appendChild(createProductCard(item));
     });
 }
 
@@ -345,10 +451,17 @@ function displayBozzaMeals() {
 function addToCart(itemId) {
 
     const selectedItem = allMenuItems.find(
-        item => Number(item.id) === Number(itemId) && item.available
+        item =>
+            Number(item.id) === Number(itemId) &&
+            item.available === true
     );
 
-    if (!selectedItem) return;
+    if (!selectedItem) {
+
+        alert("Sorry, this product is currently unavailable.");
+
+        return;
+    }
 
     const existingItem = cart.find(
         item => Number(item.id) === Number(itemId)
@@ -388,10 +501,19 @@ function addToCart(itemId) {
 
 function saveCart() {
 
-    localStorage.setItem(
-        "restaurantCart",
-        JSON.stringify(cart)
-    );
+    try {
+
+        localStorage.setItem(
+            "restaurantCart",
+            JSON.stringify(cart)
+        );
+
+    } catch (error) {
+
+        console.error("Could not save cart:", error);
+
+        alert("Your cart could not be saved. Please try again.");
+    }
 }
 
 
@@ -423,7 +545,7 @@ function updateCartCount() {
     if (cartCount) {
 
         const totalItems = cart.reduce(
-            (total, item) => total + item.quantity,
+            (total, item) => total + Number(item.quantity || 0),
             0
         );
 
@@ -433,10 +555,16 @@ function updateCartCount() {
 
 
 // =========================================
-// FORMAT CURRENCY
+// FORMAT SOUTH AFRICAN CURRENCY
 // =========================================
 
 function formatPrice(amount) {
 
-    return "R" + Number(amount).toFixed(2);
+    const price = Number(amount);
+
+    if (!Number.isFinite(price)) {
+        return "R0.00";
+    }
+
+    return "R" + price.toFixed(2);
 }

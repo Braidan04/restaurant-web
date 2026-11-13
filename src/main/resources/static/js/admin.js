@@ -1,4 +1,3 @@
-
 "use strict";
 
 // ==========================================
@@ -6,6 +5,7 @@
 // ==========================================
 
 const BOOKINGS_API = "/api/bookings";
+const MENU_API = "/api/menu";
 
 const bookingsTableBody =
     document.getElementById("bookings-table-body");
@@ -37,6 +37,7 @@ const modalBookingMessage =
     document.getElementById("modal-booking-message");
 
 let allBookings = [];
+let allMenuItems = [];
 
 
 // ==========================================
@@ -48,6 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
     setDashboardDate();
 
     loadBookings();
+    initializeMenuManagement();
 
     bookingSearch.addEventListener(
         "input",
@@ -190,8 +192,6 @@ function updateDashboardStatistics() {
 
     const totalBookings = allBookings.length;
 
-    // COUNT BOOKINGS BY STATUS
-
     const statusCounts = {
         BOOKED: 0,
         ARRIVED: 0,
@@ -214,22 +214,14 @@ function updateDashboardStatistics() {
     });
 
 
-    // UPDATE MAIN DASHBOARD STATISTICS
-
     const dashboardStatistics = {
 
         "total-bookings": totalBookings,
-
         "booked-count": statusCounts.BOOKED,
-
         "arrived-count": statusCounts.ARRIVED,
-
         "preparing-count": statusCounts.PREPARING,
-
         "ready-count": statusCounts.READY,
-
         "collected-count": statusCounts.COLLECTED,
-
         "cancelled-count": statusCounts.CANCELLED
 
     };
@@ -248,8 +240,7 @@ function updateDashboardStatistics() {
     );
 
 
-    // CALCULATE COMPLETION RATE
-    // Collected bookings divided by all bookings.
+    // COMPLETION RATE
 
     const completionRate = totalBookings === 0
         ? 0
@@ -266,20 +257,15 @@ function updateDashboardStatistics() {
     }
 
 
-    // UPDATE BOOKING STATUS OVERVIEW COUNTS
+    // OVERVIEW COUNTS
 
     const overviewCounts = {
 
         "overview-booked-count": statusCounts.BOOKED,
-
         "overview-arrived-count": statusCounts.ARRIVED,
-
         "overview-preparing-count": statusCounts.PREPARING,
-
         "overview-ready-count": statusCounts.READY,
-
         "overview-collected-count": statusCounts.COLLECTED,
-
         "overview-cancelled-count": statusCounts.CANCELLED
 
     };
@@ -298,21 +284,15 @@ function updateDashboardStatistics() {
     );
 
 
-    // UPDATE BOOKING STATUS PROGRESS BARS
-    // All percentages are calculated against total bookings.
+    // PROGRESS BARS
 
     const progressBars = {
 
         "progress-booked": statusCounts.BOOKED,
-
         "progress-arrived": statusCounts.ARRIVED,
-
         "progress-preparing": statusCounts.PREPARING,
-
         "progress-ready": statusCounts.READY,
-
         "progress-collected": statusCounts.COLLECTED,
-
         "progress-cancelled": statusCounts.CANCELLED
 
     };
@@ -360,8 +340,6 @@ function renderBookings() {
     const filteredBookings = allBookings.filter(
         booking => {
 
-            // SEARCHABLE CUSTOMER INFORMATION
-
             const bookingNumber =
                 String(booking.bookingNumber || "").toLowerCase();
 
@@ -374,17 +352,11 @@ function renderBookings() {
             const email =
                 String(booking.email || "").toLowerCase();
 
-
-            // MATCH SEARCH TEXT
-
             const matchesSearch =
                 bookingNumber.includes(searchText) ||
                 customerName.includes(searchText) ||
                 phone.includes(searchText) ||
                 email.includes(searchText);
-
-
-            // MATCH BOOKING STATUS
 
             const matchesStatus =
                 selectedStatus === "ALL" ||
@@ -395,8 +367,6 @@ function renderBookings() {
         }
     );
 
-
-    // NO RESULTS
 
     if (filteredBookings.length === 0) {
 
@@ -412,8 +382,6 @@ function renderBookings() {
 
     }
 
-
-    // DISPLAY FILTERED BOOKINGS
 
     bookingsTableBody.innerHTML = "";
 
@@ -494,7 +462,6 @@ function createActionButtons(booking) {
 
             break;
 
-
         case "ARRIVED":
 
             buttons += createStatusButton(
@@ -510,7 +477,6 @@ function createActionButtons(booking) {
             );
 
             break;
-
 
         case "PREPARING":
 
@@ -528,7 +494,6 @@ function createActionButtons(booking) {
 
             break;
 
-
         case "READY":
 
             buttons += createStatusButton(
@@ -538,7 +503,6 @@ function createActionButtons(booking) {
             );
 
             break;
-
 
         case "COLLECTED":
 
@@ -550,7 +514,6 @@ function createActionButtons(booking) {
 
             break;
 
-
         case "CANCELLED":
 
             buttons += `
@@ -561,9 +524,7 @@ function createActionButtons(booking) {
 
             break;
 
-
         default:
-
             break;
 
     }
@@ -605,8 +566,6 @@ bookingsTableBody.addEventListener(
     "click",
     async function (event) {
 
-        // VIEW BOOKING DETAILS
-
         const detailsButton = event.target.closest(
             ".booking-details-button"
         );
@@ -622,8 +581,6 @@ bookingsTableBody.addEventListener(
 
         }
 
-
-        // UPDATE BOOKING STATUS
 
         const button = event.target.closest(
             ".booking-action-button"
@@ -764,8 +721,6 @@ function displayBookingDetails(booking) {
         formatDate(booking.createdAt);
 
 
-    // DISPLAY BOOKED ITEMS
-
     const itemsContainer =
         document.getElementById("modal-booking-items");
 
@@ -799,11 +754,8 @@ function displayBookingDetails(booking) {
 
             row.innerHTML = `
                 <td>${escapeHTML(item.itemName || "Unknown item")}</td>
-
                 <td>${quantity}</td>
-
                 <td>${formatCurrency(unitPrice)}</td>
-
                 <td>${formatCurrency(subtotal)}</td>
             `;
 
@@ -813,8 +765,6 @@ function displayBookingDetails(booking) {
 
     }
 
-
-    // DISPLAY BOOKING TOTAL
 
     document.getElementById("modal-booking-total").textContent =
         formatCurrency(bookingTotal);
@@ -909,13 +859,9 @@ function getButtonLabel(status) {
     const labels = {
 
         ARRIVED: "Mark Arrived",
-
         PREPARING: "Start Preparing",
-
         READY: "Mark Ready",
-
         COLLECTED: "Mark Collected",
-
         CANCELLED: "Cancel"
 
     };
@@ -984,5 +930,755 @@ function escapeHTML(value) {
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
+
+}
+
+
+// ==========================================
+// MENU MANAGEMENT
+// ==========================================
+
+
+// ==========================================
+// INITIALIZE MENU MANAGEMENT
+// ==========================================
+
+function initializeMenuManagement() {
+
+    const addMenuItemButton =
+        document.getElementById("add-menu-item-button");
+
+    const menuItemForm =
+        document.getElementById("menu-item-form");
+
+    const cancelMenuFormButton =
+        document.getElementById("cancel-menu-form");
+
+    const refreshMenuButton =
+        document.getElementById("refresh-menu");
+
+    const menuSearch =
+        document.getElementById("menu-search");
+
+    const menuCategoryFilter =
+        document.getElementById("menu-category-filter");
+
+    const menuItemsTableBody =
+        document.getElementById("menu-items-table-body");
+
+    if (!addMenuItemButton || !menuItemForm ||
+        !cancelMenuFormButton || !refreshMenuButton ||
+        !menuSearch || !menuCategoryFilter ||
+        !menuItemsTableBody) {
+
+        console.warn("Menu management elements were not found.");
+
+        return;
+
+    }
+
+    loadMenuItems();
+
+    addMenuItemButton.addEventListener("click", function () {
+        openMenuForm();
+    });
+
+    cancelMenuFormButton.addEventListener("click", function () {
+        closeMenuForm();
+    });
+
+    menuItemForm.addEventListener("submit", saveMenuItem);
+
+    refreshMenuButton.addEventListener("click", loadMenuItems);
+
+    menuSearch.addEventListener("input", renderMenuItems);
+
+    menuCategoryFilter.addEventListener("change", renderMenuItems);
+
+    menuItemsTableBody.addEventListener("click", handleMenuTableClick);
+
+}
+
+
+// ==========================================
+// LOAD MENU ITEMS
+// ==========================================
+
+async function loadMenuItems() {
+
+    const tableBody =
+        document.getElementById("menu-items-table-body");
+
+    const refreshButton =
+        document.getElementById("refresh-menu");
+
+    const message =
+        document.getElementById("menu-management-message");
+
+    if (!tableBody) {
+        return;
+    }
+
+    tableBody.innerHTML = `
+        <tr>
+            <td colspan="6" class="table-message">
+                Loading menu items...
+            </td>
+        </tr>
+    `;
+
+    if (message) {
+        message.textContent = "";
+    }
+
+    if (refreshButton) {
+        refreshButton.disabled = true;
+    }
+
+    try {
+
+        const response = await fetch(`${MENU_API}/all`);
+
+        if (!response.ok) {
+            throw new Error("Unable to retrieve menu items.");
+        }
+
+        const menuData = await response.json();
+
+        allMenuItems = Array.isArray(menuData) ? menuData : [];
+
+        renderMenuItems();
+
+        if (message) {
+            message.textContent = "Menu items loaded successfully.";
+        }
+
+    } catch (error) {
+
+        console.error("Menu loading error:", error);
+
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="6" class="table-message">
+                    Failed to load menu items. Please try again.
+                </td>
+            </tr>
+        `;
+
+        if (message) {
+            message.textContent =
+                "Error: Could not connect to the menu API.";
+        }
+
+    } finally {
+
+        if (refreshButton) {
+            refreshButton.disabled = false;
+        }
+
+    }
+
+}
+
+
+// ==========================================
+// RENDER MENU ITEMS
+// ==========================================
+
+function renderMenuItems() {
+
+    const tableBody =
+        document.getElementById("menu-items-table-body");
+
+    const searchInput =
+        document.getElementById("menu-search");
+
+    const categoryFilter =
+        document.getElementById("menu-category-filter");
+
+    if (!tableBody || !searchInput || !categoryFilter) {
+        return;
+    }
+
+    const searchText =
+        searchInput.value.trim().toLowerCase();
+
+    const selectedCategory =
+        categoryFilter.value;
+
+    const filteredItems = allMenuItems.filter(item => {
+
+        const name = String(item.name || "").toLowerCase();
+
+        const category = String(item.category || "").toLowerCase();
+
+        const description =
+            String(item.description || "").toLowerCase();
+
+        const matchesSearch =
+            name.includes(searchText) ||
+            category.includes(searchText) ||
+            description.includes(searchText);
+
+        const matchesCategory =
+            selectedCategory === "ALL" ||
+            item.category === selectedCategory;
+
+        return matchesSearch && matchesCategory;
+
+    });
+
+    if (filteredItems.length === 0) {
+
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="6" class="table-message">
+                    No menu items found.
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+    tableBody.innerHTML = "";
+
+    filteredItems.forEach(item => {
+
+        const row = document.createElement("tr");
+
+        const available = item.available === true;
+
+        const recommended = item.recommended === true;
+
+        const bozza = item.bozza === true;
+
+        const specials = [];
+
+        if (recommended) {
+            specials.push("Recommended");
+        }
+
+        if (bozza) {
+            specials.push("Bozza & Kill Match");
+        }
+
+        row.innerHTML = `
+            <td>
+                <strong>
+                    ${escapeHTML(item.name || "Unnamed item")}
+                </strong>
+
+                ${
+                    item.description
+                        ? `<small class="menu-item-description">${escapeHTML(item.description)}</small>`
+                        : ""
+                }
+            </td>
+
+            <td>
+                ${escapeHTML(item.category || "N/A")}
+            </td>
+
+            <td>
+                ${formatCurrency(item.price)}
+            </td>
+
+            <td>
+                <span class="status-badge ${
+                    available ? "status-ready" : "status-cancelled"
+                }">
+                    ${available ? "Available" : "Unavailable"}
+                </span>
+            </td>
+
+            <td>
+                ${
+                    specials.length > 0
+                        ? specials.map(special =>
+                            `<span class="menu-special-label">${escapeHTML(special)}</span>`
+                        ).join("<br>")
+                        : "—"
+                }
+            </td>
+
+            <td>
+                <div class="menu-action-buttons">
+
+                    <button
+                        type="button"
+                        class="booking-details-button"
+                        data-edit-menu="${Number(item.id)}"
+                    >
+                        Edit
+                    </button>
+
+                    <button
+                        type="button"
+                        class="booking-action-button"
+                        data-toggle-menu="${Number(item.id)}"
+                        data-available="${available}"
+                    >
+                        ${available ? "Disable" : "Enable"}
+                    </button>
+
+                    <button
+                        type="button"
+                        class="menu-delete-button"
+                        data-delete-menu="${Number(item.id)}"
+                    >
+                        Delete
+                    </button>
+
+                </div>
+            </td>
+        `;
+
+        tableBody.appendChild(row);
+
+    });
+
+}
+
+
+// ==========================================
+// OPEN MENU FORM
+// ==========================================
+
+function openMenuForm(item = null) {
+
+    const formContainer =
+        document.getElementById("menu-item-form-container");
+
+    const formTitle =
+        document.getElementById("menu-form-title");
+
+    const form =
+        document.getElementById("menu-item-form");
+
+    const submitButton =
+        document.getElementById("menu-submit-button");
+
+    const formMessage =
+        document.getElementById("menu-form-message");
+
+    if (!formContainer || !form) {
+        return;
+    }
+
+    form.reset();
+
+    document.getElementById("menu-item-id").value =
+        item ? item.id : "";
+
+    document.getElementById("menu-name").value =
+        item ? item.name || "" : "";
+
+    document.getElementById("menu-category").value =
+        item ? item.category || "" : "";
+
+    document.getElementById("menu-price").value =
+        item ? item.price || "" : "";
+
+    document.getElementById("menu-image").value =
+        item ? item.image || "" : "";
+
+    document.getElementById("menu-description").value =
+        item ? item.description || "" : "";
+
+    document.getElementById("menu-available").checked =
+        item ? item.available === true : true;
+
+    document.getElementById("menu-recommended").checked =
+        item ? item.recommended === true : false;
+
+    document.getElementById("menu-bozza").checked =
+        item ? item.bozza === true : false;
+
+    if (formTitle) {
+        formTitle.textContent =
+            item ? "Edit Menu Item" : "Add New Menu Item";
+    }
+
+    if (submitButton) {
+        submitButton.textContent =
+            item ? "Update Menu Item" : "Save Menu Item";
+    }
+
+    if (formMessage) {
+        formMessage.textContent = "";
+    }
+
+    formContainer.hidden = false;
+
+    formContainer.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+
+}
+
+
+// ==========================================
+// CLOSE MENU FORM
+// ==========================================
+
+function closeMenuForm() {
+
+    const formContainer =
+        document.getElementById("menu-item-form-container");
+
+    const form =
+        document.getElementById("menu-item-form");
+
+    const formMessage =
+        document.getElementById("menu-form-message");
+
+    if (form) {
+        form.reset();
+    }
+
+    if (formContainer) {
+        formContainer.hidden = true;
+    }
+
+    if (formMessage) {
+        formMessage.textContent = "";
+    }
+
+}
+
+
+// ==========================================
+// SAVE NEW OR UPDATED MENU ITEM
+// ==========================================
+
+async function saveMenuItem(event) {
+
+    event.preventDefault();
+
+    const itemId =
+        document.getElementById("menu-item-id").value.trim();
+
+    const formMessage =
+        document.getElementById("menu-form-message");
+
+    const submitButton =
+        document.getElementById("menu-submit-button");
+
+    const menuItem = {
+
+        name: document.getElementById("menu-name").value.trim(),
+
+        category: document.getElementById("menu-category").value,
+
+        price: Number(document.getElementById("menu-price").value),
+
+        image: document.getElementById("menu-image").value.trim(),
+
+        description:
+            document.getElementById("menu-description").value.trim(),
+
+        available:
+            document.getElementById("menu-available").checked,
+
+        recommended:
+            document.getElementById("menu-recommended").checked,
+
+        bozza:
+            document.getElementById("menu-bozza").checked
+
+    };
+
+    if (!menuItem.name || !menuItem.category ||
+        !Number.isFinite(menuItem.price) || menuItem.price <= 0) {
+
+        if (formMessage) {
+            formMessage.textContent =
+                "Please enter a name, category and valid price.";
+        }
+
+        return;
+    }
+
+    const isEditing = itemId !== "";
+
+    const url = isEditing
+        ? `${MENU_API}/${encodeURIComponent(itemId)}`
+        : MENU_API;
+
+    const method = isEditing ? "PUT" : "POST";
+
+    if (submitButton) {
+        submitButton.disabled = true;
+
+        submitButton.textContent =
+            isEditing ? "Updating..." : "Saving...";
+    }
+
+    if (formMessage) {
+        formMessage.textContent = "";
+    }
+
+    try {
+
+        const response = await fetch(url, {
+
+            method: method,
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify(menuItem)
+
+        });
+
+        if (!response.ok) {
+
+            const errorText = await response.text();
+
+            throw new Error(
+                errorText || "Unable to save menu item."
+            );
+
+        }
+
+        closeMenuForm();
+
+        showMenuMessage(
+            isEditing
+                ? "Menu item updated successfully."
+                : "Menu item added successfully."
+        );
+
+        await loadMenuItems();
+
+    } catch (error) {
+
+        console.error("Menu save error:", error);
+
+        if (formMessage) {
+            formMessage.textContent =
+                error.message || "Could not save menu item.";
+        }
+
+    } finally {
+
+        if (submitButton) {
+
+            submitButton.disabled = false;
+
+            submitButton.textContent =
+                isEditing ? "Update Menu Item" : "Save Menu Item";
+
+        }
+
+    }
+
+}
+
+
+// ==========================================
+// HANDLE MENU TABLE ACTIONS
+// ==========================================
+
+async function handleMenuTableClick(event) {
+
+    const editButton = event.target.closest("[data-edit-menu]");
+
+    if (editButton) {
+
+        const itemId = Number(editButton.dataset.editMenu);
+
+        const item = allMenuItems.find(
+            menuItem => Number(menuItem.id) === itemId
+        );
+
+        if (!item) {
+            showMenuMessage("Menu item could not be found.");
+            return;
+        }
+
+        openMenuForm(item);
+
+        return;
+
+    }
+
+
+    const toggleButton = event.target.closest("[data-toggle-menu]");
+
+    if (toggleButton) {
+
+        const itemId = Number(toggleButton.dataset.toggleMenu);
+
+        const currentAvailability =
+            toggleButton.dataset.available === "true";
+
+        await updateMenuAvailability(
+            itemId,
+            !currentAvailability,
+            toggleButton
+        );
+
+        return;
+
+    }
+
+
+    const deleteButton = event.target.closest("[data-delete-menu]");
+
+    if (deleteButton) {
+
+        const itemId = Number(deleteButton.dataset.deleteMenu);
+
+        const item = allMenuItems.find(
+            menuItem => Number(menuItem.id) === itemId
+        );
+
+        if (!item) {
+            showMenuMessage("Menu item could not be found.");
+            return;
+        }
+
+        const confirmed = confirm(
+            `Are you sure you want to delete "${item.name}"?`
+        );
+
+        if (!confirmed) {
+            return;
+        }
+
+        await deleteMenuItem(itemId, deleteButton);
+
+    }
+
+}
+
+
+// ==========================================
+// UPDATE MENU ITEM AVAILABILITY
+// ==========================================
+
+async function updateMenuAvailability(itemId, available, button) {
+
+    button.disabled = true;
+
+    button.textContent = "Updating...";
+
+    try {
+
+        const response = await fetch(
+            `${MENU_API}/${encodeURIComponent(itemId)}/availability`,
+            {
+                method: "PATCH",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    available: available
+                })
+            }
+        );
+
+        if (!response.ok) {
+
+            const errorText = await response.text();
+
+            throw new Error(
+                errorText || "Availability update failed."
+            );
+
+        }
+
+        showMenuMessage(
+            `Menu item ${available ? "enabled" : "disabled"} successfully.`
+        );
+
+        await loadMenuItems();
+
+    } catch (error) {
+
+        console.error("Menu availability error:", error);
+
+        showMenuMessage(
+            error.message || "Could not update menu item availability."
+        );
+
+        button.disabled = false;
+
+        button.textContent = available ? "Enable" : "Disable";
+
+    }
+
+}
+
+
+// ==========================================
+// DELETE MENU ITEM
+// ==========================================
+
+async function deleteMenuItem(itemId, button) {
+
+    button.disabled = true;
+
+    button.textContent = "Deleting...";
+
+    try {
+
+        const response = await fetch(
+            `${MENU_API}/${encodeURIComponent(itemId)}`,
+            {
+                method: "DELETE"
+            }
+        );
+
+        if (!response.ok) {
+
+            const errorText = await response.text();
+
+            throw new Error(
+                errorText || "Unable to delete menu item."
+            );
+
+        }
+
+        showMenuMessage("Menu item deleted successfully.");
+
+        await loadMenuItems();
+
+    } catch (error) {
+
+        console.error("Menu deletion error:", error);
+
+        showMenuMessage(
+            error.message || "Could not delete menu item."
+        );
+
+        button.disabled = false;
+
+        button.textContent = "Delete";
+
+    }
+
+}
+
+
+// ==========================================
+// DISPLAY MENU MANAGEMENT MESSAGE
+// ==========================================
+
+function showMenuMessage(message) {
+
+    const element =
+        document.getElementById("menu-management-message");
+
+    if (element) {
+        element.textContent = message;
+    }
 
 }
