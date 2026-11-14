@@ -353,12 +353,12 @@ button {
 
 .category-tile {
     min-height: 175px;
-    padding: 24px 15px;
+    padding: 12px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 7px;
+    gap: 9px;
 
     background: var(--dark-secondary);
     border: 1px solid #303030;
@@ -378,9 +378,21 @@ button {
     background: #242018;
 }
 
-.category-emoji {
-    font-size: 38px;
-    margin-bottom: 5px;
+.category-photo {
+    width: 100%;
+    height: 112px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 7px;
+    display: block;
+    transition: transform 0.45s ease, filter 0.3s;
+    filter: saturate(1.05);
+}
+
+.category-tile:hover .category-photo,
+.category-tile.active .category-photo {
+    transform: scale(1.06);
+    filter: saturate(1.15);
 }
 
 .category-name {
@@ -1456,6 +1468,10 @@ button {
         min-height: 145px;
     }
 
+    .category-photo {
+        height: 96px;
+    }
+
     .product-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 13px;
@@ -1544,6 +1560,10 @@ button {
 
     .category-grid {
         grid-template-columns: 1fr 1fr;
+    }
+
+    .category-photo {
+        height: 82px;
     }
 
     .favourites-title {
@@ -1691,4 +1711,264 @@ button {
 .hero-decoration {
     position: relative;
     z-index: 2;
+}
+
+
+/* =========================================
+   MULTI-PAGE LAYOUT
+   (Home, Shop by Category, food pages,
+   Menu, Bozza & Specials, About, Contact)
+========================================= */
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.secondary-button {
+    min-height: 48px;
+    padding: 13px 25px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 800;
+    transition: all 0.25s;
+}
+
+.secondary-button:hover {
+    background: var(--gold);
+    color: #111;
+}
+
+/* Pages without a photo banner get breathing room at the top */
+.page-section {
+    padding-top: 70px;
+}
+
+.page-title {
+    font-size: clamp(32px, 5vw, 50px);
+    line-height: 1.15;
+    margin-bottom: 12px;
+}
+
+.page-title span {
+    color: var(--gold);
+}
+
+.contact-section.page-section,
+.about-section.page-section {
+    min-height: 55vh;
+}
+
+/* Photo banner at the top of each food page */
+.page-banner {
+    position: relative;
+    min-height: 340px;
+    padding: 70px max(5%, calc((100% - 1200px) / 2));
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: var(--dark-secondary);
+    border-bottom: 1px solid rgba(214, 173, 85, 0.25);
+}
+
+.page-banner-image {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transform: scale(1.03);
+}
+
+.page-banner-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        rgba(17, 17, 17, 0.95) 0%,
+        rgba(17, 17, 17, 0.75) 50%,
+        rgba(17, 17, 17, 0.35) 100%
+    );
+}
+
+.page-banner-content {
+    position: relative;
+    z-index: 1;
+    max-width: 620px;
+}
+
+.page-banner-content h1 {
+    color: #fff;
+    font-size: clamp(38px, 6vw, 62px);
+    line-height: 1.08;
+    font-weight: 900;
+    letter-spacing: -1px;
+    margin-bottom: 14px;
+}
+
+.page-banner-content h1 span {
+    color: var(--gold);
+}
+
+.page-banner-content > p:last-child {
+    color: #c3c3c3;
+    font-size: 16px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 22px;
+    color: #c7c7c7;
+    font-size: 13px;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.back-link:hover {
+    color: var(--gold);
+}
+
+/* Buttons to jump between categories */
+.category-switcher {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 38px;
+}
+
+.category-pill {
+    padding: 9px 18px;
+    color: #d8d8d8;
+    background: var(--dark-secondary);
+    border: 1px solid #333;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 700;
+    transition: all 0.2s;
+}
+
+.category-pill:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+}
+
+.category-pill.active {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: #111;
+}
+
+.category-page-section {
+    border-top: none;
+    padding-top: 45px;
+}
+
+/* Link to Bozza & Specials under the category tiles */
+.bozza-callout {
+    margin-top: 28px;
+    padding: 26px 30px;
+    display: grid;
+    gap: 6px;
+    background:
+        linear-gradient(110deg, #1b1913 0%, #242018 100%);
+    border: 1px solid rgba(214, 173, 85, 0.35);
+    border-radius: 9px;
+    transition: border-color 0.25s, transform 0.25s;
+}
+
+.bozza-callout:hover {
+    border-color: var(--gold);
+    transform: translateY(-3px);
+}
+
+.bozza-callout-eyebrow {
+    color: var(--gold);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+.bozza-callout-title {
+    color: #fff;
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.bozza-callout-link {
+    color: var(--gold-light);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.bozza-section .product-grid {
+    margin-top: 10px;
+}
+
+@media (max-width: 700px) {
+
+    .page-banner {
+        min-height: 260px;
+        padding: 50px 6%;
+    }
+
+    .page-section {
+        padding-top: 45px;
+    }
+
+    .category-switcher {
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 6px;
+    }
+
+    .category-pill {
+        white-space: nowrap;
+    }
+
+    .hero-actions a {
+        flex: 1 1 180px;
+    }
+}
+
+.page-banner + .bozza-section {
+    padding-top: 50px;
+    border-top: none;
+}
+
+
+/* =========================================
+   GROUP TITLES ON A CATEGORY PAGE (Drinks: Ice Cream / Cold Drinks)
+========================================= */
+
+.category-group-title {
+    margin: 34px 0 18px;
+    font-size: clamp(22px, 3vw, 30px);
+    font-weight: 900;
+}
+
+.category-group-title span {
+    color: var(--gold);
+}
+
+.category-switcher + .category-group-title {
+    margin-top: 8px;
+}
+
+/* Customer favourites sit under the category tiles */
+.category-section .recommend-section {
+    margin-top: 55px;
+    padding-bottom: 45px;
+}
+
+.category-section .favourites-title {
+    font-size: clamp(22px, 3vw, 30px);
 }

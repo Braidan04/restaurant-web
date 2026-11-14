@@ -31,3 +31,15 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Private database configuration
+/src/main/resources/application.properties
+/src/main/resources/application-local.properties
+.env
+.env.*
+
+# Local Firebase cache
+.firebase/
+
+# Build output
+target/

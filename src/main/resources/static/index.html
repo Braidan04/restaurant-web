@@ -9,7 +9,10 @@
     <meta name="description"
           content="Discover delicious burgers, kota, sandwiches, hotdogs and pizza. Explore our menu and order your favourites.">
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#d6ad55">
+<link rel="apple-touch-icon" href="/images/app-icon-192.png">
+<link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -24,15 +27,16 @@
                 <span class="brand-name">RESTAURANT</span>
             </a>
 
-            <div class="header-search">
+            <form class="header-search" action="menu.html" method="get" role="search">
                 <input
                     type="search"
                     id="menu-search"
+                    name="search"
                     placeholder="Search for your favourite meal..."
                     aria-label="Search menu"
                 >
                 <span class="search-icon">⌕</span>
-            </div>
+            </form>
 
             <a href="cart.html" class="cart-link" aria-label="Shopping cart">
                 <span class="cart-icon">🛒</span>
@@ -44,12 +48,12 @@
 
         <nav class="main-navigation">
 
-            <a href="#home" class="nav-link active">Home</a>
-            <a href="#categories" class="nav-link">Shop Categories</a>
-            <a href="#menu" class="nav-link">Explore Our Menu</a>
-            <a href="#bozza" class="nav-link">Bozza & Specials</a>
-            <a href="#about" class="nav-link">About Us</a>
-            <a href="#contact" class="nav-link">Contact</a>
+            <a href="index.html" class="nav-link active" aria-current="page">Home</a>
+            <a href="categories.html" class="nav-link">Shop by Category</a>
+            <a href="menu.html" class="nav-link">Explore Our Menu</a>
+            <a href="bozza.html" class="nav-link">Bozza &amp; Specials</a>
+            <a href="about.html" class="nav-link">About Us</a>
+            <a href="contact.html" class="nav-link">Contact</a>
 
         </nav>
 
@@ -81,240 +85,24 @@
                     there's always something worth enjoying.
                 </p>
 
-                <a href="#menu" class="primary-button">
-                    Explore Our Menu
-                </a>
+                <div class="hero-actions">
 
-            </div>
+                    <a href="categories.html" class="primary-button">
+                        Shop by Category
+                    </a>
 
-            <div class="hero-decoration">
-                <span>FRESH</span>
-                <span>DELICIOUS</span>
-                <span>MADE FOR YOU</span>
-            </div>
-
-        </section>
-
-
-        <!-- SHOP BY CATEGORY -->
-        <section class="category-section section-container" id="categories">
-
-            <div class="section-heading">
-
-                <p class="section-eyebrow">FIND WHAT YOU LOVE</p>
-
-                <h2>Shop by <span>Category</span></h2>
-
-                <p>
-                    Explore our selection and discover your next favourite meal.
-                </p>
-
-            </div>
-
-            <div class="category-grid">
-
-                <button class="category-tile filter-btn"
-                        type="button"
-                        data-category="Burgers"
-                        onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">
-
-                    <span class="category-emoji">🍔</span>
-                    <span class="category-name">Burgers</span>
-                    <span class="category-description">Juicy and delicious</span>
-
-                </button>
-
-                <button class="category-tile filter-btn"
-                        type="button"
-                        data-category="Kota"
-                        onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">
-
-                    <span class="category-emoji">🥪</span>
-                    <span class="category-name">Kota</span>
-                    <span class="category-description">Loaded with flavour</span>
-
-                </button>
-
-                <button class="category-tile filter-btn"
-                        type="button"
-                        data-category="Sandwiches"
-                        onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">
-
-                    <span class="category-emoji">🥙</span>
-                    <span class="category-name">Sandwiches</span>
-                    <span class="category-description">Fresh and satisfying</span>
-
-                </button>
-
-                <button class="category-tile filter-btn"
-                        type="button"
-                        data-category="Hotdogs"
-                        onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">
-
-                    <span class="category-emoji">🌭</span>
-                    <span class="category-name">Hotdogs</span>
-                    <span class="category-description">A classic favourite</span>
-
-                </button>
-
-                <button class="category-tile filter-btn"
-                        type="button"
-                        data-category="Pizza"
-                        onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">
-
-                    <span class="category-emoji">🍕</span>
-                    <span class="category-name">Pizza</span>
-                    <span class="category-description">Made to be enjoyed</span>
-
-                </button>
-
-            </div>
-
-        </section>
-
-
-        <!-- CUSTOMER FAVOURITES -->
-        <section class="recommend-section section-container" id="recommendations">
-
-            <div class="section-heading favourites-heading">
-
-                <p class="section-eyebrow">FRESHLY PREPARED FOR YOU</p>
-
-                <h2>
-                    What We've Got for You… <span>Ohh!</span>
-                </h2>
-
-                <h3 class="favourites-title">CUSTOMER FAVOURITES</h3>
-
-                <p>
-                    A few delicious picks we think you'll love. Go on, treat yourself!
-                </p>
-
-            </div>
-
-            <div class="product-grid" id="recommended-container">
-                <!-- Recommended products are loaded by menu.js -->
-            </div>
-
-        </section>
-
-
-        <!-- EXPLORE OUR MENU -->
-        <section class="menu-section section-container" id="menu">
-
-            <div class="section-heading">
-
-                <p class="section-eyebrow">FRESHLY PREPARED FOR YOU</p>
-
-                <h2>Explore Our <span>Menu</span></h2>
-
-                <p>
-                    Discover your favourites and find something delicious.
-                </p>
-
-            </div>
-
-            <div class="product-grid" id="menu-container">
-                <!-- All available menu products are loaded by menu.js -->
-            </div>
-
-        </section>
-
-
-        <!-- BOZZA AND KILL MATCH -->
-        <section class="bozza-section" id="bozza">
-
-            <div class="section-container">
-
-                <div class="section-heading">
-
-                    <p class="section-eyebrow">FOR THE BIG APPETITE</p>
-
-                    <h2>Our <span>Bozza & Kill Match</span> Meals</h2>
-
-                    <p>
-                        Bigger portions, bold flavours and meals made to satisfy.
-                    </p>
+                    <a href="menu.html" class="secondary-button">
+                        Explore Our Menu
+                    </a>
 
                 </div>
 
-                <div class="product-grid" id="bozza-container">
-                    <!-- Bozza meals are loaded by menu.js -->
-                </div>
-
             </div>
+
 
         </section>
 
 
-        <!-- ABOUT -->
-        <section class="about-section section-container" id="about">
-
-            <div class="about-content">
-
-                <div class="about-text">
-
-                    <p class="section-eyebrow">OUR STORY</p>
-
-                    <h2>Good Food. <span>Good Times.</span></h2>
-
-                    <p>
-                        We believe great food brings people together.
-                        Our goal is to serve satisfying meals, bring bold
-                        flavours to every bite and make every visit enjoyable.
-                    </p>
-
-                    <p>
-                        Whether you're craving a burger, a loaded kota,
-                        a sandwich, a hotdog or pizza, there's something
-                        waiting for you.
-                    </p>
-
-                </div>
-
-                <div class="about-highlight">
-                    <span class="about-highlight-icon">✦</span>
-                    <h3>MADE TO SATISFY</h3>
-                    <p>Great flavour starts with a great meal.</p>
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- CONTACT -->
-        <section class="contact-section" id="contact">
-
-            <div class="section-container contact-content">
-
-                <p class="section-eyebrow">WE'D LOVE TO HEAR FROM YOU</p>
-
-                <h2>Let's <span>Connect</span></h2>
-
-                <p>
-                    Have a question about our menu or an order?
-                    Get in touch with us.
-                </p>
-
-                <!-- Replace these placeholders with the restaurant's real details -->
-                <div class="contact-details">
-
-                    <div class="contact-item">
-                        <span class="contact-icon">✉</span>
-                        <span>Email: Add restaurant email</span>
-                    </div>
-
-                    <div class="contact-item">
-                        <span class="contact-icon">☎</span>
-                        <span>Phone: Add restaurant number</span>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
 
     </main>
 
@@ -324,7 +112,7 @@
 
         <div class="footer-content">
 
-            <a href="#home" class="brand footer-brand">
+            <a href="index.html" class="brand footer-brand">
                 <span class="brand-icon">R</span>
                 <span class="brand-name">RESTAURANT</span>
             </a>
@@ -332,10 +120,12 @@
             <p>Good food. Great moments. Unforgettable taste.</p>
 
             <div class="footer-links">
-                <a href="#home">Home</a>
-                <a href="#categories">Categories</a>
-                <a href="#menu">Menu</a>
-                <a href="#contact">Contact</a>
+                <a href="index.html">Home</a>
+                <a href="categories.html">Categories</a>
+                <a href="menu.html">Menu</a>
+                <a href="bozza.html">Bozza &amp; Specials</a>
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact</a>
             </div>
 
             <p class="copyright">
@@ -351,5 +141,14 @@
     <script src="js/menu.js"></script>
     <script src="js/hero-slideshow.js"></script>
 
+<script>
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("/service-worker.js")
+            .then(() => console.log("Restaurant app is ready"))
+            .catch(error => console.error("App setup error:", error));
+    });
+}
+</script>
 </body>
 </html>

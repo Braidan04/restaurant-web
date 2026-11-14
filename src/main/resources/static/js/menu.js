@@ -33,10 +33,13 @@ document.addEventListener("DOMContentLoaded", () => {
 async function loadMenu() {
 
     const menuContainer = document.getElementById("menu-container");
+    const categoryContainers = document.querySelectorAll(".category-products");
 
-    if (menuContainer) {
-        menuContainer.textContent = "Loading our delicious menu...";
-    }
+    [menuContainer, ...categoryContainers].forEach(container => {
+        if (container) {
+            container.textContent = "Loading our delicious menu...";
+        }
+    });
 
     try {
 
@@ -57,6 +60,7 @@ async function loadMenu() {
         displayMenu();
         displayRecommendedProducts();
         displayBozzaMeals();
+        displayCategoryPage();
 
     } catch (error) {
 
@@ -82,6 +86,11 @@ async function loadMenu() {
             bozzaContainer.textContent =
                 "Special meals are temporarily unavailable.";
         }
+
+        categoryContainers.forEach(container => {
+            container.textContent =
+                "Sorry, these meals are temporarily unavailable. Please try again later.";
+        });
     }
 }
 
@@ -93,6 +102,37 @@ async function loadMenu() {
 function setupMenuFilters() {
 
     const filterButtons = document.querySelectorAll(".filter-btn");
+    const menuContainer = document.getElementById("menu-container");
+    const searchInput = document.getElementById("menu-search");
+
+    // Read ?search= and ?category= when arriving on the menu page
+    const params = new URLSearchParams(window.location.search);
+
+    if (menuContainer) {
+
+        const searchFromUrl = (params.get("search") || "").trim();
+        const categoryFromUrl = params.get("category");
+
+        if (searchFromUrl && searchInput) {
+            searchInput.value = searchFromUrl;
+            searchTerm = searchFromUrl.toLowerCase();
+        }
+
+        if (categoryFromUrl) {
+            selectedCategory = categoryFromUrl;
+        }
+    }
+
+    function markActiveFilter() {
+        filterButtons.forEach(btn => {
+            btn.classList.toggle(
+                "active",
+                btn.dataset.category === selectedCategory
+            );
+        });
+    }
+
+    markActiveFilter();
 
     filterButtons.forEach(button => {
 
@@ -105,27 +145,46 @@ function setupMenuFilters() {
                     ? "All"
                     : clickedCategory;
 
-            filterButtons.forEach(btn => {
-                btn.classList.remove("active");
-            });
-
-            if (selectedCategory !== "All") {
-                button.classList.add("active");
-            }
+            markActiveFilter();
 
             displayMenu();
         });
     });
 
-    const searchInput = document.getElementById("menu-search");
+    if (!searchInput) return;
 
-    if (searchInput) {
+    const searchForm = searchInput.closest("form");
 
+    if (menuContainer) {
+
+        // On the menu page, filter while typing
         searchInput.addEventListener("input", () => {
 
             searchTerm = searchInput.value.toLowerCase().trim();
 
             displayMenu();
+        });
+
+        if (searchForm) {
+            searchForm.addEventListener("submit", event => {
+                event.preventDefault();
+                searchTerm = searchInput.value.toLowerCase().trim();
+                displayMenu();
+            });
+        }
+
+    } else if (searchForm) {
+
+        // On every other page, pressing Enter opens the menu page with the results
+        searchForm.addEventListener("submit", event => {
+
+            event.preventDefault();
+
+            const value = searchInput.value.trim();
+
+            window.location.href = value
+                ? "menu.html?search=" + encodeURIComponent(value)
+                : "menu.html";
         });
     }
 }
@@ -142,7 +201,12 @@ function getCategoryEmoji(category) {
         Kota: "🥪",
         Sandwiches: "🥙",
         Hotdogs: "🌭",
-        Pizza: "🍕"
+        Pizza: "🍕",
+        Chips: "🍟",
+        "Meat & Chicken": "🍗",
+        "Ice Cream": "🍦",
+        Drinks: "🥤",
+        Extras: "➕"
     };
 
     return emojis[category] || "🍽️";
@@ -358,7 +422,7 @@ function displayMenu() {
     if (filteredItems.length === 0) {
 
         menuContainer.innerHTML =
-            "<p class='empty-menu'>No meals found. Try another search.</p>";
+            "<p class='empty-menu'>No meals found. Try another search or category.</p>";
 
         return;
     }
@@ -440,6 +504,49 @@ function displayBozzaMeals() {
     bozzaItems.forEach(item => {
 
         bozzaContainer.appendChild(createProductCard(item));
+    });
+}
+
+
+// =========================================
+// DISPLAY ONE CATEGORY (Kota page, Burgers page, ...)
+// =========================================
+
+function displayCategoryPage() {
+
+    // Every product grid on a category page (e.g. Ice Cream has cones and cups)
+    const containers = document.querySelectorAll(".category-products");
+
+    containers.forEach(container => {
+
+        const category = container.dataset.category;
+        const nameIncludes = (container.dataset.nameIncludes || "").toLowerCase();
+
+        container.innerHTML = "";
+
+        const categoryItems = allMenuItems.filter(item => {
+
+            const matchesName =
+                !nameIncludes ||
+                (item.name || "").toLowerCase().includes(nameIncludes);
+
+            return item.available === true &&
+                item.category === category &&
+                matchesName;
+        });
+
+        if (categoryItems.length === 0) {
+
+            container.innerHTML =
+                "<p class='empty-menu'>Nothing is available here right now. Please check back soon.</p>";
+
+            return;
+        }
+
+        categoryItems.forEach(item => {
+
+            container.appendChild(createProductCard(item));
+        });
     });
 }
 

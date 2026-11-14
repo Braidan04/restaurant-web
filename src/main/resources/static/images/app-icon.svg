@@ -1,0 +1,16 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="100" fill="#101010"/>
+  <rect x="12" y="12" width="488" height="488" rx="90"
+        fill="none" stroke="#d6ad55" stroke-width="12"/>
+  <g fill="none" stroke="#d6ad55" stroke-width="18"
+     stroke-linecap="round" stroke-linejoin="round">
+    <path d="M180 190 C130 160 155 95 210 105 C225 45 310 45 330 105 C390 95 415 165 365 190"/>
+    <path d="M205 190 L205 250 M255 165 L255 250 M305 190 L305 250"/>
+  </g>
+  <text x="256" y="340" text-anchor="middle"
+        fill="#d6ad55" font-family="Georgia,serif"
+        font-size="100" font-weight="bold">R</text>
+  <text x="256" y="410" text-anchor="middle"
+        fill="#ffffff" font-family="Arial,sans-serif"
+        font-size="32" letter-spacing="5">RESTAURANT</text>
+</svg>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Our Extras | Restaurant</title>
+
+    <meta name="description"
+          content="Our Extras - Add a little extra to any meal. Order online.">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body data-category-page="Extras">
+
+    <!-- HEADER -->
+    <header class="site-header">
+
+        <div class="header-main">
+
+            <a href="index.html" class="brand">
+                <span class="brand-icon">R</span>
+                <span class="brand-name">RESTAURANT</span>
+            </a>
+
+            <form class="header-search" action="menu.html" method="get" role="search">
+                <input
+                    type="search"
+                    id="menu-search"
+                    name="search"
+                    placeholder="Search for your favourite meal..."
+                    aria-label="Search menu"
+                >
+                <span class="search-icon">⌕</span>
+            </form>
+
+            <a href="cart.html" class="cart-link" aria-label="Shopping cart">
+                <span class="cart-icon">🛒</span>
+                <span class="cart-label">My Cart</span>
+                <span id="cart-count" class="cart-count">0</span>
+            </a>
+
+        </div>
+
+        <nav class="main-navigation">
+
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="categories.html" class="nav-link active" aria-current="page">Shop by Category</a>
+            <a href="menu.html" class="nav-link">Explore Our Menu</a>
+            <a href="bozza.html" class="nav-link">Bozza &amp; Specials</a>
+            <a href="about.html" class="nav-link">About Us</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+
+        </nav>
+
+    </header>
+
+
+    <main>
+
+        <!-- PAGE BANNER -->
+        <section class="page-banner">
+
+            <div class="page-banner-image" style="background-image: url('images/extras.jpg');" aria-hidden="true"></div>
+
+            <div class="page-banner-content">
+
+                <a href="categories.html" class="back-link">← All categories</a>
+
+                <p class="section-eyebrow">SHOP BY CATEGORY</p>
+
+                <h1>Our <span>Extras</span></h1>
+
+                <p>Add a little extra to any meal.</p>
+
+            </div>
+
+        </section>
+
+
+        <!-- CATEGORY PRODUCTS -->
+        <section class="menu-section section-container category-page-section">
+
+            <nav class="category-switcher" aria-label="Other categories">
+                <a href="burgers.html" class="category-pill">Burgers</a>
+                <a href="kota.html" class="category-pill">Kota</a>
+                <a href="sandwiches.html" class="category-pill">Sandwiches</a>
+                <a href="hotdogs.html" class="category-pill">Hotdogs</a>
+                <a href="pizza.html" class="category-pill">Pizza</a>
+                <a href="chips.html" class="category-pill">Chips</a>
+                <a href="meat-chicken.html" class="category-pill">Meat &amp; Chicken</a>
+                <a href="drinks.html" class="category-pill">Drinks</a>
+                <a href="ice-cream.html" class="category-pill">Ice Cream</a>
+                <a href="extras.html" class="category-pill active" aria-current="page">Extras</a>
+                <a href="bozza.html" class="category-pill">Bozza &amp; Specials</a>
+            </nav>
+
+            <div class="product-grid category-products" id="category-container" data-category="Extras">
+                <!-- Our Extras are loaded by menu.js -->
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+
+        <div class="footer-content">
+
+            <a href="index.html" class="brand footer-brand">
+                <span class="brand-icon">R</span>
+                <span class="brand-name">RESTAURANT</span>
+            </a>
+
+            <p>Good food. Great moments. Unforgettable taste.</p>
+
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="categories.html">Categories</a>
+                <a href="menu.html">Menu</a>
+                <a href="bozza.html">Bozza &amp; Specials</a>
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact</a>
+            </div>
+
+            <p class="copyright">
+                &copy; 2026 Restaurant. All rights reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+    <script src="js/menu.js"></script>
+
+</body>
+</html>
