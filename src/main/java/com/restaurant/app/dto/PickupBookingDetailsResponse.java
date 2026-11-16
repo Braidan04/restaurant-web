@@ -11,6 +11,7 @@ public class PickupBookingDetailsResponse {
     private String customerName;
     private String phone;
     private String email;
+    private String notes;
     private LocalDateTime createdAt;
     private List<BookingItemDetails> items;
 
@@ -20,6 +21,7 @@ public class PickupBookingDetailsResponse {
             String customerName,
             String phone,
             String email,
+            String notes,
             LocalDateTime createdAt,
             List<BookingItemDetails> items) {
 
@@ -28,6 +30,7 @@ public class PickupBookingDetailsResponse {
         this.customerName = customerName;
         this.phone = phone;
         this.email = email;
+        this.notes = notes;
         this.createdAt = createdAt;
         this.items = items;
     }
@@ -50,6 +53,10 @@ public class PickupBookingDetailsResponse {
 
     public String getEmail() {
         return email;
+    }
+
+    public String getNotes() {
+        return notes;
     }
 
     public LocalDateTime getCreatedAt() {

@@ -246,6 +246,7 @@ public class PickupBookingService {
                 booking.getCustomerName(),
                 booking.getPhone(),
                 booking.getEmail(),
+                booking.getNotes(),
                 booking.getCreatedAt(),
                 items
         );
