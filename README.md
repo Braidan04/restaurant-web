@@ -16,7 +16,7 @@ Customers can explore menu items, add selections to their cart and submit collec
 
 ## Key Features
 
-### Customer Website
+### Customer Website or App
 - Interactive restaurant menu.
 - Food categories and menu browsing.
 - Menu search and filtering.
