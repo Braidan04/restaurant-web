@@ -1,6 +1,7 @@
 # Restaurant Management System
 
 A full-stack restaurant management application developed using **Java, Spring Boot, MySQL, HTML, CSS and JavaScript**.
+#MADE FOR A CLIENT,AND IT IS CURRENTLY IN USE.THIS IS THE DEMO NOT DISCLOSING THE ACTUAL CLIENT APP BUT SHOWING WHAT I DID TO THE CLIENT APP
 
 The system provides customers with an online menu and collection booking experience, while giving restaurant staff an administration dashboard to manage bookings, monitor collection progress and maintain menu items.
 
